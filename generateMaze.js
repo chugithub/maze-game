@@ -1,4 +1,4 @@
-function generateMaze(columnsNumber, rowsNumber) {
+function generateMaze(columnsNumber, rowsNumber, tractorsNumber) {    
     const map = [];
 
     for (let y = 0; y < rowsNumber; y++) {
@@ -22,10 +22,12 @@ function generateMaze(columnsNumber, rowsNumber) {
     const startX = getRandomFrom(Array(columnsNumber).fill(0).map((item, index) => index).filter(isEven));
     const startY = getRandomFrom(Array(rowsNumber).fill(0).map((item, index) => index).filter(isEven));
 
-    var tractor = {};
-
-    tractor.x = startX;
-    tractor.y = startY;
+    var tractors = [];
+    
+    for (let i = 0; i < tractorsNumber; i++) {
+        tractors.push({x: getRandomFrom(Array(columnsNumber).fill(0).map((item, index) => index).filter(isEven)), y: startY});
+        console.log(startX + ' ' + startY);
+    }
 
     function setField(x, y, value) {
         if (x < 0 || x >= columnsNumber || y < 0 || y >= rowsNumber) {
@@ -82,55 +84,57 @@ function generateMaze(columnsNumber, rowsNumber) {
     }
 
     function moveTractor() {
-        const directions = [];
+        for (const tractor of tractors) {
+            const directions = [];
 
-        if (tractor.x > 0) {
-            directions.push('left');
-        }
-
-        if (tractor.x < columnsNumber - 2) {
-            directions.push('right');
-        }
-
-        if (tractor.y > 0) {
-            directions.push('up');
-        }
-
-        if (tractor.y < rowsNumber - 2) {
-            directions.push('down');
-        }
-
-        const direction = getRandomFrom(directions);
-
-        switch (direction) {
-            case 'left':
-                if (getField(tractor.x - 2, tractor.y) === 'X') {
-                    setField(tractor.x - 1, tractor.y, ' ');
-                    setField(tractor.x - 2, tractor.y, ' ');
-                }
-                tractor.x -= 2;
-                break;
-            case 'right':
-                if (getField(tractor.x + 2, tractor.y) === 'X') {
-                    setField(tractor.x + 1, tractor.y, ' ');
-                    setField(tractor.x + 2, tractor.y, ' ');
-                }
-                tractor.x += 2;
-                break;
-            case 'up':
-                if (getField(tractor.x, tractor.y - 2) === 'X') {
-                    setField(tractor.x, tractor.y - 1, ' ');
-                    setField(tractor.x, tractor.y - 2, ' ');
-                }
-                tractor.y -= 2;
-                break;
-            case 'down':
-                if (getField(tractor.x, tractor.y + 2) === 'X') {
-                    setField(tractor.x, tractor.y + 1, ' ');
-                    setField(tractor.x, tractor.y + 2, ' ');
-                }
-                tractor.y += 2;
-                break;
+            if (tractor.x > 0) {
+                directions.push('left');
+            }
+    
+            if (tractor.x < columnsNumber - 2) {
+                directions.push('right');
+            }
+    
+            if (tractor.y > 0) {
+                directions.push('up');
+            }
+    
+            if (tractor.y < rowsNumber - 2) {
+                directions.push('down');
+            }
+    
+            const direction = getRandomFrom(directions);
+    
+            switch (direction) {
+                case 'left':
+                    if (getField(tractor.x - 2, tractor.y) === 'X') {
+                        setField(tractor.x - 1, tractor.y, ' ');
+                        setField(tractor.x - 2, tractor.y, ' ');
+                    }
+                    tractor.x -= 2;
+                    break;
+                case 'right':
+                    if (getField(tractor.x + 2, tractor.y) === 'X') {
+                        setField(tractor.x + 1, tractor.y, ' ');
+                        setField(tractor.x + 2, tractor.y, ' ');
+                    }
+                    tractor.x += 2;
+                    break;
+                case 'up':
+                    if (getField(tractor.x, tractor.y - 2) === 'X') {
+                        setField(tractor.x, tractor.y - 1, ' ');
+                        setField(tractor.x, tractor.y - 2, ' ');
+                    }
+                    tractor.y -= 2;
+                    break;
+                case 'down':
+                    if (getField(tractor.x, tractor.y + 2) === 'X') {
+                        setField(tractor.x, tractor.y + 1, ' ');
+                        setField(tractor.x, tractor.y + 2, ' ');
+                    }
+                    tractor.y += 2;
+                    break;
+            }
         }
     }
 

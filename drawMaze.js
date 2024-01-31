@@ -1,11 +1,16 @@
-const columnsSize = 51;
-const rowsSize = 51;
+const columnsSize = 450;
+const rowsSize = 450;
 const fieldSize = 7;
 const padding = 10;
 
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
-const maze = generateMaze(columnsSize, rowsSize);
+
+const tractorsNumber = 50;
+const maze = generateMaze(columnsSize, rowsSize, tractorsNumber);
+
+var shiftX = 0;
+var shiftY = 0;
 
 function init() {
     canvas.width = padding * 2 + columnsSize * fieldSize;
@@ -41,5 +46,21 @@ function drawMap() {
     }
 }
 
+function drawExit() {
+    if (columnsSize % 2 === 0) {shiftX = fieldSize;}
+    if (rowsSize % 2 === 0) {shiftY = fieldSize;}
+
+    context.fillStyle = 'white';
+    context.beginPath();
+    context.rect(padding, 0, fieldSize, padding);
+    context.fill();
+
+    context.fillStyle = 'white';
+    context.beginPath();
+    context.rect((columnsSize - 1) * fieldSize + padding - shiftX, rowsSize * fieldSize + padding - shiftY, fieldSize, padding);
+    context.fill();
+}
+
 init();
 drawMap();
+drawExit();
