@@ -20,7 +20,7 @@ function generateMaze(columnsNumber, rowsNumber, tractorsNumber) {
     const startX = getRandomFrom(Array(columnsNumber).fill(0).map((item, index) => index).filter(isEven));
     const startY = getRandomFrom(Array(rowsNumber).fill(0).map((item, index) => index).filter(isEven));
 
-    var tractors = [];
+    const tractors = [];
 
     for (let i = 0; i < tractorsNumber; i++) {
         tractors.push({

@@ -3,7 +3,7 @@ const rowsSize = 35;
 const fieldSize = 7;
 const padding = 10;
 
-var player = {};
+const player = {};
 player.X = 0;
 player.Y = 0;
 
@@ -13,8 +13,8 @@ const context = canvas.getContext('2d');
 const tractorsNumber = 50;
 const maze = generateMaze(columnsSize, rowsSize, tractorsNumber);
 
-var shiftX = 0;
-var shiftY = 0;
+let shiftX = 0;
+let shiftY = 0;
 
 function init() {
     canvas.width = padding * 2 + columnsSize * fieldSize;
@@ -79,38 +79,38 @@ function drawPlayer() {
 
 document.addEventListener('keydown', function (e) {
     if (e.which === 38) {
-        if ( ((player.Y - 1) >= 0) && (getField(player.X, player.Y - 1 ) != 'X') ) {
+        if ( ((player.Y - 1) >= 0) && (getField(player.X, player.Y - 1 ) !== 'X') ) {
             player.Y--;
         }
     }
     if (e.which === 40) {
-        if ( ((player.Y + 1) < rowsSize) && (getField(player.X, player.Y + 1 ) != 'X') ) {
+        if ( ((player.Y + 1) < rowsSize) && (getField(player.X, player.Y + 1 ) !== 'X') ) {
             player.Y++;
         }
     }
     if (e.which === 37) {
-        if ( ((player.X - 1) >= 0) && (getField(player.X - 1, player.Y ) != 'X') ) {
+        if ( ((player.X - 1) >= 0) && (getField(player.X - 1, player.Y ) !== 'X') ) {
             player.X--;
         }
     }
     if (e.which === 39) {
-        if ( ((player.X + 1) < columnsSize) && (getField(player.X + 1, player.Y ) != 'X') ) {
+        if ( ((player.X + 1) < columnsSize) && (getField(player.X + 1, player.Y ) !== 'X') ) {
             player.X++;
         }
     }
 });
 
 function loop() {
-    lp = requestAnimationFrame(loop);
+    let lp = requestAnimationFrame(loop);
 
     init();
     drawMap();
     drawExit();
     drawPlayer();
-    if ((player.X == columnsSize - 1) && (player.Y == rowsSize - 1)) {
+    if ((player.X === columnsSize - 1) && (player.Y === rowsSize - 1)) {
         cancelAnimationFrame(lp);
 
-        var js1 = document.createElement("link");
+        const js1 = document.createElement("link");
         js1.href = "https://mihailmaximov.ru/projects/maze/style.css";
         js1.rel = "stylesheet";
         document.head.appendChild(js1);
